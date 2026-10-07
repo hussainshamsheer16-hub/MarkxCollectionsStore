@@ -1,0 +1,83 @@
+{% extends "store/base.html" %}{% load mx %}
+{% block title %}{{ p.name }} | MarkX Collections{% endblock %}
+{% block desc %}{{ p.description|truncatechars:150 }}{% endblock %}
+{% block og_title %}{{ p.name }} | MarkX Collections{% endblock %}
+{% block og_description %}{{ p.description|truncatechars:200 }}{% endblock %}
+{% block og_type %}product{% endblock %}
+{% block og_image_tag %}{% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}{% endblock %}
+{% block head %}<script type="application/ld+json">{{ product_json_ld|safe }}</script>{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">{{ p.category.name }}</span><h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">{{ p.name }}</h1><div class="crumbs"><a href="{% url 'store:home' %}">Home</a> / <a href="{% url 'store:shop' %}">Shop</a> / {{ p.name }}</div></div></section>
+<section class="section"><div class="container pd-layout">
+  <div class="pd-gallery">
+    <div class="pd-main-img"><img id="pdMain" src="{{ p.image.url }}" alt="{{ p.name }}"></div>
+    <div class="pd-thumbs">{% for im in p.gallery %}<img src="{{ im.url }}" alt="" class="{% if forloop.first %}active{% endif %}" data-thumb>{% endfor %}</div>
+  </div>
+  <div class="pd-info">
+    {% if p.badge %}<span class="tag tag-accent">{{ p.badge }}</span>{% endif %}
+    <div class="rating" style="margin-top:14px;font-size:.85rem">{% for i in p.stars|times %}<i class="fa-solid fa-star"></i>{% endfor %}{% for i in p.stars|rest %}<i class="fa-regular fa-star"></i>{% endfor %} <span class="count">{{ p.rating }} · {{ p.reviews }} reviews</span></div>
+    <div class="pd-price-row"><span class="pd-price">{{ p.price|money }}</span>{% if p.old_price %}<span class="pd-old">{{ p.old_price|money }}</span><span class="tag tag-accent">SAVE {{ p.discount_percent }}%</span>{% endif %}</div>
+    <p class="pd-desc">{{ p.description }}</p>
+    {% if p.product_type == "tracksuit" %}<p class="tag tag-accent">Jacket + trousers set</p>{% endif %}
+    {% if p.fit or p.fabric or p.care %}<section class="product-details"><h2>Details</h2><dl>{% if p.fit %}<div><dt>Fit</dt><dd>{{ p.get_fit_display }}</dd></div>{% endif %}{% if p.fabric %}<div><dt>Fabric</dt><dd>{{ p.fabric }}</dd></div>{% endif %}{% if p.care %}<div><dt>Care</dt><dd>{{ p.care|linebreaksbr }}</dd></div>{% endif %}</dl></section>{% endif %}
+    {% if p.is_available and p.stock_qty <= 5 %}<p class="product-stock-note">Only {{ p.stock_qty }} left</p>{% elif not p.is_available %}<p class="product-stock-note product-stock-note--out">Out of stock</p>{% endif %}
+    <details class="size-recommender" {% if recommended_size or size_error %}open{% endif %}><summary>Find my recommended size</summary><form id="sizeFinderForm" method="get" action="{{ p.get_absolute_url }}" class="size-recommender-fields"><label>Height (cm)<input type="number" name="height" min="120" max="230" required value="{{ request.GET.height }}"></label><label>Weight (kg)<input type="number" name="weight" min="30" max="250" required value="{{ request.GET.weight }}"></label><label>Preferred fit<select name="fit"><option value="slim" {% if request.GET.fit == 'slim' %}selected{% endif %}>Slim</option><option value="regular" {% if request.GET.fit != 'slim' and request.GET.fit != 'relaxed' %}selected{% endif %}>Regular</option><option value="relaxed" {% if request.GET.fit == 'relaxed' %}selected{% endif %}>Relaxed</option></select></label><button class="btn btn-ghost" type="submit">Recommend size</button></form><div id="sizeFinderResult" aria-live="polite">{% if recommended_size %}<p class="size-recommendation" data-recommended-size="{{ recommended_size }}">Recommended size: <b>{{ recommended_size }}</b> — you can still choose any size below.</p>{% elif size_error %}<p class="product-stock-note product-stock-note--out">{{ size_error }}</p>{% endif %}</div></details>
+    <form method="post" action="{% url 'store:cart_add' p.pk %}" id="pdForm" data-stock="{{ p.stock_qty }}">{% csrf_token %}
+      <div class="admin-block-title">Colour: <b id="colorLabel">{{ p.color_list.0 }}</b></div>
+      <div class="chip-group" data-group="color">{% for c in p.color_list %}<button type="button" class="chip swatch-chip {% if forloop.first %}selected{% endif %}" data-value="{{ c }}"><span class="swatch-dot" style="background:{{ c|hexcolor }}"></span>{{ c }}</button>{% endfor %}</div>
+      <input type="hidden" name="color" value="{{ p.color_list.0 }}">
+      <div class="product-size-heading"><div class="admin-block-title" style="margin-top:22px">Size</div>{% if p.size_guide != "none" %}<details class="product-size-guide"><summary>Size guide <small>(approx. inches)</small></summary><div class="product-size-guide-content">{% include "store/_size_guide.html" %}</div></details>{% endif %}</div>
+      <div class="chip-group" data-group="size">{% for s in p.size_list %}<button type="button" class="chip {% if recommended_size %}{% if s == recommended_size %}selected{% endif %}{% elif forloop.first %}selected{% endif %}" data-value="{{ s }}">{{ s }}</button>{% endfor %}</div>
+      <input type="hidden" name="size" value="{{ recommended_size|default:p.size_list.0 }}">
+      <div class="qty-selector"><span class="admin-block-title" style="margin:0">Qty</span><div class="qty-stepper"><button type="button" data-q="-1">−</button><span id="qtyVal">1</span><button type="button" data-q="1">+</button></div><input type="hidden" name="qty" id="qtyInput" value="1"></div>
+      <div class="pd-actions">
+        {% if p.is_available %}<button class="btn btn-accent btn-arrow" style="flex:1" type="submit"><i class="fa-solid fa-cart-shopping"></i> Add to cart</button><button class="btn btn-solid" name="buy_now" value="1" type="submit">Buy now</button>{% else %}<button class="btn btn-solid" style="flex:1" type="button" disabled>Out of stock</button><button class="btn btn-solid" type="button" disabled>Buy now</button>{% endif %}
+        {% if p.customizable %}<a class="btn btn-ghost" href="{% url 'store:customize' %}">Customize</a>{% endif %}
+      </div>
+    </form>
+    {% if p.variants.exists %}<details class="size-recommender"><summary>Notify me when a size is back in stock</summary><form method="post" action="{% url 'store:stock_alert' p.pk %}" class="size-recommender-fields">{% csrf_token %}<label>Size<select name="size">{% for size in p.size_list %}<option>{{ size }}</option>{% endfor %}</select></label><label>Colour<select name="color">{% for color in p.color_list %}<option>{{ color }}</option>{% endfor %}</select></label><label>Email<input type="email" name="email" value="{{ user.email }}"></label><label>Phone<input type="tel" name="phone" placeholder="03XXXXXXXXX"></label><button type="submit" class="btn btn-ghost">Notify me</button></form></details>{% endif %}
+    <ul class="pd-perks"><li><i class="fa-solid fa-truck"></i> Free delivery over Rs. 6,000</li><li><i class="fa-solid fa-credit-card"></i> 15% off when you pay by card</li><li><i class="fa-solid fa-rotate-left"></i> 7-day exchange on unworn items</li></ul>
+  </div>
+</div></section>
+<section class="section product-reviews"><div class="container"><div class="section-head"><div><span class="eyebrow">CUSTOMER FEEDBACK</span><h2>Product reviews</h2></div></div>
+  <div class="product-review-list">{% for review in approved_reviews %}<article class="product-review"><div class="rating">{% for star in "12345" %}{% if forloop.counter <= review.rating %}<i class="fa-solid fa-star"></i>{% else %}<i class="fa-regular fa-star"></i>{% endif %}{% endfor %}</div><p>{{ review.comment|linebreaksbr }}</p><b>{{ review.user.get_full_name|default:review.user.username }}</b><small>{{ review.created|date:"d M Y" }}</small></article>{% empty %}<p class="admin-sub">No approved reviews yet.</p>{% endfor %}</div>
+  {% if can_review %}<div class="contact-form-card review-form-card"><div class="contact-form-heading"><span class="eyebrow">YOUR EXPERIENCE</span><h2>Write a review</h2><p>Your review will appear after it is approved.</p></div><form method="post" action="{% url 'store:submit_review' p.slug %}">{% csrf_token %}<div class="form-grid">{% include "store/_field.html" with field=review_form.rating %}{% include "store/_field.html" with field=review_form.comment extra="full" %}</div><button class="btn btn-accent" type="submit">Submit review</button></form></div>{% elif user_review %}<p class="admin-sub review-note">{% if user_review.approved %}You have reviewed this product.{% else %}Your review is waiting for approval.{% endif %}</p>{% elif user.is_authenticated %}<p class="admin-sub review-note">A delivered order containing this product is required to write a review.</p>{% else %}<p class="admin-sub review-note"><a href="{% url 'store:account' %}?mode=login">Sign in</a> to write a review after delivery.</p>{% endif %}
+</div></section>
+{% if related %}<section class="section" style="padding-top:0"><div class="container"><div class="section-head"><div><span class="eyebrow">{% if has_complete_look %}COMPLETE THE LOOK{% else %}YOU MAY ALSO LIKE{% endif %}</span><h2>{% if has_complete_look %}Complete the look{% else %}Related{% endif %}</h2></div></div><div class="product-grid">{% for p in related %}{% include "store/_card.html" %}{% endfor %}</div></div></section>{% endif %}
+{% endblock %}
+{% block scripts %}<script>
+document.querySelectorAll('[data-group]').forEach(g=>g.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{g.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');document.querySelector('input[name='+g.dataset.group+']').value=c.dataset.value;if(g.dataset.group==='color')document.getElementById('colorLabel').textContent=c.dataset.value;})));
+document.querySelectorAll('[data-thumb]').forEach(t=>t.addEventListener('click',()=>{document.getElementById('pdMain').src=t.src;document.querySelectorAll('[data-thumb]').forEach(x=>x.classList.remove('active'));t.classList.add('active');}));
+let q=1;const maxQty=Number(document.getElementById('pdForm')?.dataset.stock||99);document.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>{q=Math.max(1,Math.min(maxQty,q+Number(b.dataset.q)));document.getElementById('qtyVal').textContent=q;document.getElementById('qtyInput').value=q;}));
+const sizeFinder=document.getElementById('sizeFinderForm');
+sizeFinder?.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const button=sizeFinder.querySelector('[type="submit"]');
+  const oldText=button.textContent;
+  button.disabled=true;button.textContent='Finding size...';
+  const url=new URL(sizeFinder.action,window.location.href);
+  new FormData(sizeFinder).forEach((value,key)=>url.searchParams.set(key,value));
+  try{
+    const response=await fetch(url,{headers:{'X-Requested-With':'XMLHttpRequest','Accept':'text/html'}});
+    if(!response.ok)throw new Error('Size recommendation request failed');
+    const page=new DOMParser().parseFromString(await response.text(),'text/html');
+    const result=document.getElementById('sizeFinderResult');
+    const recommendation=page.querySelector('[data-recommended-size]');
+    const error=page.querySelector('.product-stock-note--out');
+    result.innerHTML=recommendation?recommendation.outerHTML:(error?error.outerHTML:'');
+    if(recommendation){
+      const size=recommendation.dataset.recommendedSize;
+      document.querySelectorAll('[data-group="size"] .chip').forEach(chip=>chip.classList.toggle('selected',chip.dataset.value===size));
+      const sizeInput=document.querySelector('#pdForm input[name="size"]');
+      if(sizeInput)sizeInput.value=size;
+      history.pushState({},'',url);
+      document.querySelector('.product-size-heading')?.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    sizeFinder.closest('details')?.setAttribute('open','');
+  }catch(error){
+    window.location.assign(url);
+  }finally{
+    button.disabled=false;button.textContent=oldText;
+  }
+});
+</script>{% endblock %}

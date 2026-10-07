@@ -1,0 +1,29 @@
+{% extends "store/base.html" %}
+{% block title %}Shop | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">THE DROP</span><h1>Shop All Products</h1><div class="crumbs"><a href="{% url 'store:home' %}">Home</a> / Shop</div></div></section>
+<section class="section-tight section catalog-section"><div class="container">
+  <div>
+    <form method="get" class="shop-filter-bar" aria-label="Filter products">
+      {% if sort %}<input type="hidden" name="sort" value="{{ sort }}">{% endif %}
+      <div class="shop-filter-field"><label for="shopSearch">Search</label><input id="shopSearch" type="search" name="q" value="{{ q }}" placeholder="Search products"></div>
+      <div class="shop-filter-field"><label for="shopCategory">Category</label><select id="shopCategory" name="category"><option value="">All categories</option>{% for c in categories %}<option value="{{ c.slug }}" {% if active_cat == c.slug or active_cat == c.name %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select></div>
+      <div class="shop-filter-field"><label for="shopSize">Size</label><select id="shopSize" name="size"><option value="">All sizes</option>{% for value in sizes %}<option value="{{ value }}" {% if active_size == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div class="shop-filter-field"><label for="shopColor">Colour</label><select id="shopColor" name="color"><option value="">All colours</option>{% for value in colors %}<option value="{{ value }}" {% if active_color == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div class="shop-filter-field shop-filter-price"><label for="maxRange">Maximum price</label><input id="maxRange" type="range" name="max" min="1000" max="6000" step="250" value="{{ max_price|default:'6000' }}"><div class="shop-filter-range-value"><span>Rs. 1,000</span><output id="maxLabel">Rs. {{ max_price|default:'6000' }}</output></div></div>
+      <div class="shop-filter-actions"><button class="btn btn-solid" type="submit">Apply</button><a class="shop-filter-reset" href="{% url 'store:shop' %}">Reset</a></div>
+    </form>
+    <div class="shop-toolbar"><span>{{ page_obj.paginator.count }} product{{ page_obj.paginator.count|pluralize }}</span>
+      <form method="get">{% if active_cat %}<input type="hidden" name="category" value="{{ active_cat }}">{% endif %}{% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}{% if max_price %}<input type="hidden" name="max" value="{{ max_price }}">{% endif %}{% if active_size %}<input type="hidden" name="size" value="{{ active_size }}">{% endif %}{% if active_color %}<input type="hidden" name="color" value="{{ active_color }}">{% endif %}<select name="sort" onchange="this.form.submit()"><option value="">Featured</option><option value="low" {% if sort == 'low' %}selected{% endif %}>Price: low to high</option><option value="high" {% if sort == 'high' %}selected{% endif %}>Price: high to low</option><option value="rating" {% if sort == 'rating' %}selected{% endif %}>Top rated</option></select></form></div>
+    <div class="product-grid shop-grid">{% for p in products %}{% include "store/_card.html" %}{% empty %}<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-shirt"></i><h2>No products found</h2><p>No products match these filters.</p><a href="{% url 'store:shop' %}" class="btn btn-solid">View all products</a></div>{% endfor %}</div>
+    {% if page_obj.paginator.num_pages > 1 %}<nav class="shop-pagination" aria-label="Product pages">{% if page_obj.has_previous %}<a class="btn btn-ghost btn-sm" href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">&larr; Previous</a>{% endif %}<span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>{% if page_obj.has_next %}<a class="btn btn-ghost btn-sm" href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Next &rarr;</a>{% endif %}</nav>{% endif %}
+  </div>
+</div></section>
+{% endblock %}
+{% block scripts %}<script>
+const maxRange = document.getElementById('maxRange');
+const maxLabel = document.getElementById('maxLabel');
+maxRange?.addEventListener('input', () => {
+  maxLabel.value = `Rs. ${Number(maxRange.value).toLocaleString()}`;
+});
+</script>{% endblock %}

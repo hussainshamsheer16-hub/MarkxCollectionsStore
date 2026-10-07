@@ -1,0 +1,32 @@
+{% extends "store/base.html" %}{% load mx %}
+{% block title %}My Orders | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container cart-page-heading">
+    <div><span class="eyebrow">YOUR MARKX ACCOUNT</span><h1>My orders</h1></div>
+    <a class="btn btn-ghost" href="{% url 'store:cart' %}"><i class="fa-solid fa-arrow-left"></i> Back to cart</a>
+  </div>
+</section>
+<section class="section-tight order-history-section">
+  <div class="container">
+    {% if orders %}
+      <div class="order-history-list">
+        {% for order in orders %}
+          <article class="order-history-item">
+            <header class="order-history-head">
+              <div><span class="eyebrow">ORDER</span><h2>{{ order.number }}</h2><time datetime="{{ order.created|date:'c' }}">{{ order.created|date:"d M Y, H:i" }}</time></div>
+              <span class="tag tag-accent">{{ order.get_status_display }}</span>
+            </header>
+            <ul class="order-history-lines">
+              {% for item in order.items.all %}<li><span>{{ item.qty }} × {{ item.name }} <small>{{ item.size }} · {{ item.color }}</small></span><b>{{ item.line_total|money }}</b></li>{% endfor %}
+            </ul>
+            <footer class="order-history-total"><span>Total</span><strong>{{ order.total|money }}</strong></footer>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state"><i class="fa-solid fa-receipt"></i><h2>No orders yet</h2><p>Your placed orders will appear here.</p><a class="btn btn-solid" href="{% url 'store:shop' %}">Start shopping</a></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

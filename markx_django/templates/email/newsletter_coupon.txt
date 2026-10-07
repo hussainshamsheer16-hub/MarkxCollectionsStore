@@ -1,0 +1,6 @@
+Welcome to the MarkX Crew!
+
+Use your 15% discount code on your next order:
+{{ coupon.code }}
+
+This code can be used once. Enter it at checkout before placing your order.

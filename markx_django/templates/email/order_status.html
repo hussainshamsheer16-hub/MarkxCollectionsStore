@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><body style="margin:0;background:#f4f2ec;color:#171713;font-family:Arial,sans-serif">
+  <main style="max-width:600px;margin:24px auto;padding:28px;background:#fff;border-top:4px solid #c8ff2e">
+    <h1 style="margin:0 0 18px;font-size:24px">Order update</h1>
+    <p>Hello {{ order.full_name }},</p>
+    <p>Your MarkX Collections order <strong>{{ order.number }}</strong> is now <strong>{{ status_label }}</strong>.</p>
+    <p style="color:#68685f">Previous status: {{ previous_status|title }}</p>
+    <p>If you have questions, contact our team and mention your order number.</p>
+  </main>
+</body></html>

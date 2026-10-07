@@ -1,0 +1,769 @@
+[
+ {
+  "id": 1,
+  "slug": "better-days-oversized-tee",
+  "name": "Better Days Oversized Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1499,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 42,
+  "colors": [
+   "Black",
+   "White"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "NEW",
+  "desc": "Heavyweight 240gsm cotton oversized tee with a dropped shoulder and boxy fit. Garment-washed for a soft, broken-in feel. Features the Better Days Ahead globe graphic.",
+   "image": "products/Better_Days_Oversized_Tee_wfvyirt.jpeg",
+  "image2": "products/better-days-oversized-tee-back.jpg"
+ },
+ {
+  "id": 2,
+  "slug": "essential-hoodie",
+  "name": "Essential Hoodie",
+  "category": "Hoodies",
+   "active": false,
+  "type": "plain",
+  "price": 3499,
+  "old": null,
+  "rating": 4.9,
+  "reviews": 88,
+  "colors": [
+   "Cream",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "BEST SELLER",
+  "desc": "480gsm brushed-fleece heavyweight hoodie with kangaroo pocket, ribbed cuffs and a double-lined hood. The one you'll live in.",
+   "image": "products/Essential_Hoodie_33ewbW6.jpeg",
+  "image2": "products/essential-hoodie-back.jpg"
+ },
+ {
+  "id": 3,
+  "slug": "varsity-jacket",
+  "name": "Varsity Jacket",
+  "category": "Jackets",
+   "active": false,
+  "type": "corporate",
+  "price": 5499,
+  "old": 6499,
+  "rating": 4.7,
+  "reviews": 31,
+  "colors": [
+   "Black",
+   "Cream"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "LIMITED",
+  "desc": "Wool-blend body with faux-leather sleeves, snap-button front and ribbed collar, cuffs and hem. Embroidered M chest patch.",
+   "image": "products/Varsity_Jacket_x7KddGK.jpeg",
+  "image2": "products/varsity-jacket-back.jpg"
+ },
+ {
+  "id": 4,
+  "slug": "cargo-pants",
+  "name": "Cargo Pants",
+   "category": "Trousers",
+   "type": "trousers",
+  "price": 2899,
+  "old": null,
+  "rating": 4.6,
+  "reviews": 46,
+  "colors": [
+   "Olive",
+   "Black"
+  ],
+  "sizes": [
+   "28",
+   "30",
+   "32",
+   "34",
+   "36",
+   "38"
+  ],
+  "size_guide": "bottom",
+  "cust": false,
+  "badge": "NEW",
+  "desc": "Relaxed-fit cotton twill cargos with utility pockets, drawcord ankle cuffs and a durable brushed finish.",
+   "image": "products/cargo_gvHeY1r.jpeg",
+  "image2": "products/cargo-pants-back.jpg"
+ },
+ {
+  "id": 5,
+  "slug": "classic-black-oversized-tee",
+  "name": "Classic Black Oversized Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1499,
+  "old": 1799,
+  "rating": 4.8,
+  "reviews": 42,
+  "colors": [
+   "Black",
+   "White"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "SALE",
+  "desc": "A heavyweight 240gsm cotton oversized tee with a dropped shoulder and boxy fit. Garment-washed for a soft, broken-in feel from the first wear.",
+   "image": "products/Classic_Black_Oversized_Tee.jpeg",
+  "image2": "products/classic-black-oversized-tee-back.jpg"
+ },
+ {
+  "id": 6,
+  "slug": "premium-white-cotton-tee",
+  "name": "Premium White Cotton Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1299,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 65,
+  "colors": [
+   "White",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "The everyday essential. Combed cotton, tag-free neck label and a relaxed regular fit built to layer or wear solo.",
+   "image": "products/Premium_White_Cotton_Tee.jpeg",
+  "image2": "products/premium-white-cotton-tee-back.jpg"
+ },
+ {
+  "id": 7,
+  "slug": "minimal-logo-tee",
+  "name": "Minimal Logo Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1399,
+  "old": 1599,
+  "rating": 4.6,
+  "reviews": 31,
+  "colors": [
+   "Grey",
+   "Black",
+   "Navy"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "cust": false,
+  "badge": "",
+  "desc": "Clean regular-fit tee with a small embroidered MarkX mark on the chest. Soft, breathable and made for daily rotation.",
+   "image": "products/Minimal_Logo_Tee.jpeg",
+  "image2": "products/minimal-logo-tee-back.jpg"
+ },
+ {
+  "id": 8,
+  "slug": "urban-graphic-tee",
+  "name": "Urban Graphic Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1699,
+  "old": 1999,
+  "rating": 4.9,
+  "reviews": 88,
+  "colors": [
+   "Black",
+   "Charcoal"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "BEST SELLER",
+   "desc": "A soft cotton shirt with a bold graphic and a comfortable everyday fit.",
+   "image": "products/Urban_Graphic_Tee_gHKU2id.jpeg",
+  "image2": "products/urban-graphic-tee-back.jpg"
+ },
+ {
+  "id": 9,
+  "slug": "custom-name-t-shirt",
+  "name": "Custom Name T-Shirt",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1599,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 54,
+  "colors": [
+   "Black",
+   "White",
+   "Grey"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "CUSTOM",
+   "desc": "A cotton shirt that can be personalised with a name, number or short message.",
+   "image": "products/Custom_Name_T-Shirt.jpeg",
+  "image2": "products/custom-name-t-shirt-back.jpg"
+ },
+ {
+  "id": 10,
+  "slug": "dtf-street-art-tee",
+   "name": "Street Art Cotton Shirt",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1799,
+  "old": 2099,
+  "rating": 4.7,
+  "reviews": 39,
+  "colors": [
+   "Black"
+  ],
+  "sizes": [
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+   "desc": "A statement cotton shirt with a bold street-art graphic.",
+   "image": "products/DTF_Street_Art_Tee.jpeg",
+  "image2": "products/dtf-street-art-tee-back.jpg"
+ },
+ {
+  "id": 11,
+  "slug": "oversized-vintage-tee",
+  "name": "Oversized Vintage Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1549,
+  "old": null,
+  "rating": 4.5,
+  "reviews": 22,
+  "colors": [
+   "Sand",
+   "Grey"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "Sand-washed oversized tee with a faded athletics graphic for a lived-in vintage feel.",
+   "image": "products/Oversized_Vintage_Tee.jpeg",
+  "image2": "products/oversized-vintage-tee-back.jpg"
+ },
+ {
+  "id": 12,
+  "slug": "custom-corporate-shirt",
+  "name": "Custom Corporate Shirt",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1899,
+  "old": null,
+  "rating": 4.9,
+  "reviews": 27,
+  "colors": [
+   "Navy",
+   "Black",
+   "White"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "Professional uniform tee with your company logo. Bulk pricing available for teams and organizations.",
+   "image": "products/Custom_Corporate_Shirt.jpeg",
+  "image2": "products/custom-corporate-shirt-back.jpg"
+ },
+ {
+  "id": 13,
+  "slug": "navy-polo-tee",
+  "name": "Navy Polo Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1999,
+  "old": 2299,
+  "rating": 4.6,
+  "reviews": 18,
+  "colors": [
+   "Navy",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "Piqué cotton polo with a 3-button placket and structured collar. Sharp enough for the office, easy enough for weekends.",
+   "image": "products/Navy_Polo_Tee.jpeg",
+  "image2": "products/navy-polo-tee-back.jpg"
+ },
+ {
+  "id": 14,
+  "slug": "red-signature-tee",
+  "name": "Red Signature Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1449,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 46,
+  "colors": [
+   "Red",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "Signature red cotton tee with tonal MarkX branding. Bold colour, clean finish.",
+   "image": "products/Red_Signature_Tee.jpeg",
+  "image2": "products/red-signature-tee-back.jpg"
+ },
+ {
+  "id": 17,
+  "slug": "charcoal-jogger-pants",
+  "name": "Charcoal Jogger Pants",
+   "category": "Trousers",
+  "type": "trousers",
+  "price": 1899,
+  "old": 2199,
+  "rating": 4.7,
+  "reviews": 24,
+  "colors": [
+   "Charcoal",
+   "Black"
+  ],
+  "sizes": [
+   "28",
+   "30",
+   "32",
+   "34",
+   "36",
+   "38"
+  ],
+  "size_guide": "bottom",
+  "cust": false,
+  "badge": "",
+  "desc": "Tapered joggers in brushed cotton fleece with a drawcord waist and ribbed ankle cuffs.",
+   "image": "products/Charcoal_Jogger_Pants.jpeg",
+  "image2": "products/charcoal-jogger-pants-back.jpg"
+ },
+ {
+  "id": 18,
+  "slug": "corporate-formal-trousers",
+  "name": "Corporate Formal Trousers",
+   "category": "Trousers",
+   "type": "trousers",
+  "price": 2299,
+  "old": null,
+  "rating": 4.6,
+  "reviews": 12,
+  "colors": [
+   "Navy",
+   "Charcoal"
+  ],
+  "sizes": [
+   "28",
+   "30",
+   "32",
+   "34",
+   "36",
+   "38"
+  ],
+  "size_guide": "bottom",
+  "cust": false,
+  "badge": "",
+  "desc": "Tailored-fit formal trousers with belt loops and a clean centre crease. Wrinkle-resistant fabric.",
+   "image": "products/Corporate_Formal_Trousers.jpeg",
+  "image2": "products/corporate-formal-trousers-back.jpg"
+ },
+ {
+  "id": 22,
+  "slug": "essential-cream-pullover-hoodie",
+  "name": "Essential Cream Pullover Hoodie",
+  "category": "Hoodies",
+   "active": false,
+  "type": "plain",
+  "price": 3699,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 21,
+  "colors": [
+   "Cream",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "BEST SELLER",
+  "desc": "Warm brushed-fleece pullover hoodie with a roomy hood, ribbed cuffs and a practical front pocket.",
+   "image": "products/Essential_Cream_Pullover_Hoodie.jpeg",
+  "image2": "products/essential-hoodie-back.jpg"
+ },
+ {
+  "id": 23,
+  "slug": "classic-varsity-letterman-jacket",
+  "name": "Classic Varsity Letterman Jacket",
+  "category": "Jackets",
+   "active": false,
+  "type": "corporate",
+  "price": 5699,
+  "old": 6299,
+  "rating": 4.7,
+  "reviews": 16,
+  "colors": [
+   "Black",
+   "Cream"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "LIMITED",
+  "desc": "A classic varsity silhouette with contrast sleeves, snap buttons and ribbed trim.",
+  "image": "products/varsity-jacket.jpg",
+  "image2": "products/varsity-jacket-back.jpg"
+ },
+ {
+  "id": 24,
+  "slug": "urban-street-art-print-tee",
+  "name": "Urban Street Art Print Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1599,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 19,
+  "colors": [
+   "Black",
+   "White"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "NEW",
+  "desc": "Everyday cotton tee finished with a crisp street-art print made for an easy regular fit.",
+   "image": "products/Urban_Street_Art_Print_Tee.jpeg",
+  "image2": "products/dtf-street-art-tee-back.jpg"
+ },
+ {
+  "id": 26,
+  "slug": "personalized-name-cotton-tee",
+  "name": "Personalized Name Cotton Tee",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1699,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 11,
+  "colors": [
+   "White",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "CUSTOM",
+   "desc": "A relaxed cotton shirt that can be personalised with a name or short message.",
+   "image": "products/Personalized_Name_Cotton_Tee.jpeg",
+  "image2": "products/custom-name-t-shirt-back.jpg"
+ },
+ {
+  "id": 27,
+  "slug": "custom-team-polo-shirt",
+  "name": "Custom Team Polo Shirt",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1899,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 9,
+  "colors": [
+   "Navy",
+   "Black"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "CUSTOM",
+  "desc": "A smart collared polo with a comfortable fit, suitable for team logos and workwear orders.",
+  "image": "products/navy-polo-tee.jpg",
+  "image2": "products/navy-polo-tee-back.jpg"
+ },
+ {
+  "id": 31,
+  "slug": "black-and-cream-varsity-jacket",
+  "name": "Black and Cream Varsity Jacket",
+  "category": "Jackets",
+   "active": false,
+  "type": "corporate",
+  "price": 5499,
+  "old": null,
+  "rating": 4.6,
+  "reviews": 10,
+  "colors": [
+   "Black",
+   "Cream"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "",
+  "desc": "A timeless contrast-sleeve varsity jacket with a button front and a comfortable layered fit.",
+   "image": "products/Black_and_Cream_Varsity_Jacket.jpeg",
+  "image2": "products/varsity-jacket-back.jpg"
+ },
+ {
+  "id": 39,
+  "slug": "essential-black-fleece-hoodie",
+  "name": "Essential Black Fleece Hoodie",
+  "category": "Hoodies",
+   "active": false,
+  "type": "plain",
+  "price": 3499,
+  "old": null,
+  "rating": 4.9,
+  "reviews": 18,
+  "colors": [
+   "Black",
+   "Cream"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "BEST SELLER",
+  "desc": "Heavy brushed fleece, a lined hood and ribbed cuffs make this a dependable cold-day layer.",
+   "image": "products/Essential_Black_Fleece_Hoodie.jpeg",
+  "image2": "products/essential-hoodie-back.jpg"
+ },
+ {
+  "id": 45,
+  "slug": "custom-print-relaxed-tee",
+   "name": "Personalised Relaxed Cotton Shirt",
+   "category": "Shirts",
+   "type": "shirt",
+  "price": 1799,
+  "old": null,
+  "rating": 4.6,
+  "reviews": 8,
+  "colors": [
+   "Black",
+   "White"
+  ],
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL",
+   "XXL"
+  ],
+  "cust": true,
+  "badge": "CUSTOM",
+  "desc": "A relaxed-fit cotton tee ready for your own artwork or a short custom message.",
+   "image": "products/Custom_Print_Relaxed_Tee.jpeg",
+    "image2": "products/custom-name-t-shirt-back.jpg"
+ },
+ {
+  "id": 60,
+  "slug": "core-fleece-tracksuit",
+  "name": "Core Fleece Tracksuit",
+  "category": "Tracksuits",
+  "type": "tracksuit",
+  "price": 5999,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 0,
+  "colors": ["Black", "Charcoal"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "NEW",
+  "desc": "A coordinated fleece jacket and trouser set with a soft feel and an easy everyday fit.",
+  "image": "products/Essential_Black_Fleece_Hoodie.jpeg",
+  "image2": ""
+ },
+ {
+  "id": 61,
+  "slug": "essential-cotton-tracksuit",
+  "name": "Essential Cotton Tracksuit",
+  "category": "Tracksuits",
+  "type": "tracksuit",
+  "price": 6499,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 0,
+  "colors": ["Navy", "Black"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "",
+  "desc": "A matched cotton jacket and trouser set for travel, warm-ups, and relaxed days.",
+  "image": "products/Varsity_Jacket.jpeg",
+  "image2": ""
+ },
+ {
+  "id": 62,
+  "slug": "performance-zip-tracksuit",
+  "name": "Performance Zip Tracksuit",
+  "category": "Tracksuits",
+  "type": "tracksuit",
+  "price": 6999,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 0,
+  "colors": ["Black", "Navy"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "NEW",
+  "desc": "A lightweight zip jacket paired with matching tapered trousers for active days.",
+  "image": "products/Charcoal_Jogger_Pants.jpeg",
+  "image2": ""
+ },
+ {
+  "id": 63,
+  "slug": "oxford-casual-shirt",
+  "name": "Oxford Casual Shirt",
+  "category": "Shirts",
+  "type": "shirt",
+  "price": 3299,
+  "old": null,
+  "rating": 4.7,
+  "reviews": 0,
+  "colors": ["Sky Blue", "White"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "NEW",
+  "desc": "A cotton Oxford shirt with a button-down collar and a relaxed smart-casual fit.",
+  "image": "products/Navy_Collared_Polo_Tee.jpeg",
+  "image2": ""
+ },
+ {
+  "id": 64,
+  "slug": "linen-formal-shirt",
+  "name": "Linen Formal Shirt",
+  "category": "Shirts",
+  "type": "shirt",
+  "price": 3799,
+  "old": null,
+  "rating": 4.8,
+  "reviews": 0,
+  "colors": ["White", "Sand"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "",
+  "desc": "A breathable linen-blend formal shirt with a clean front and tailored silhouette.",
+  "image": "products/Custom_Corporate_Shirt.jpeg",
+  "image2": ""
+ },
+ {
+  "id": 65,
+  "slug": "classic-poplin-shirt",
+  "name": "Classic Poplin Shirt",
+  "category": "Shirts",
+  "type": "shirt",
+  "price": 3499,
+  "old": null,
+  "rating": 4.6,
+  "reviews": 0,
+  "colors": ["White", "Navy"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "cust": false,
+  "badge": "",
+  "desc": "A crisp cotton poplin shirt designed for work, dinners, and everyday smart dressing.",
+  "image": "products/Premium_White_Cotton_Tee.jpeg",
+  "image2": ""
+ }
+]

@@ -1,0 +1,36 @@
+{% extends "store/base.html" %}
+{% block title %}{{ spec.title }} | Manage Store{% endblock %}
+{% block content %}
+<section class="page-head dashboard-page-head">
+  <div class="container dashboard-heading">
+  <div><span class="eyebrow"><a href="{% url 'store:staff_workspace' %}">MANAGE STORE</a></span><h1>{{ spec.title }}</h1><p class="dashboard-lede">{{ page_obj.paginator.count }} records</p></div>
+  <div class="staff-workspace-actions"><a class="btn btn-ghost staff-back-button" href="{{ back_url }}"><i class="fa-solid fa-arrow-left"></i> {{ back_label }}</a>{% if can_add %}<a class="btn btn-accent" href="{% url 'store:manage_create' model_key %}"><i class="fa-solid fa-plus"></i> Add {{ singular_title }}</a>{% endif %}</div>
+  </div>
+</section>
+<section class="section dashboard-section">
+  <div class="container">
+    <form class="staff-filter-bar" method="get">
+      <label class="staff-search"><span class="sr-only">Search {{ spec.title }}</span><input type="search" name="q" value="{{ search_query }}" placeholder="Search {{ spec.title|lower }}..."></label>
+      {% for filter in filter_fields %}<label class="staff-filter"><span>{{ filter.label }}</span><select name="{{ filter.name }}"><option value="">All</option>{% for option in filter.options %}<option value="{{ option.value }}"{% if option.selected %} selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></label>{% endfor %}
+      <button class="btn btn-solid btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Apply</button>
+      {% if search_query or active_filters %}<a class="btn btn-ghost btn-sm" href="{% url 'store:manage_model' model_key %}">Clear</a>{% endif %}
+    </form>
+    <div class="admin-table-wrap">
+      <table class="admin-table staff-data-table">
+        <thead><tr>{% if spec.show_thumbnail %}<th>Image</th>{% endif %}{% for field,label in spec.columns %}<th>{{ label }}</th>{% endfor %}<th>Actions</th></tr></thead>
+        <tbody>
+          {% for row in rows %}<tr>{% if spec.show_thumbnail %}<td>{% if row.image_url %}<img class="staff-product-thumb" src="{{ row.image_url }}" alt="{{ row.object.name }}">{% else %}<span class="staff-product-thumb-empty"><i class="fa-regular fa-image"></i></span>{% endif %}</td>{% endif %}{% for value in row.cells %}<td>{{ value|default:"—" }}</td>{% endfor %}<td><div class="staff-row-actions">{% if can_edit %}<a class="btn btn-ghost btn-sm" href="{% url 'store:manage_edit' model_key row.object.pk %}" aria-label="Edit record"><i class="fa-solid fa-pen"></i> Edit</a>{% endif %}{% if can_delete %}<form method="post" action="{% url 'store:manage_delete' model_key row.object.pk %}" onsubmit="return confirm('Delete this record? This cannot be undone.');">{% csrf_token %}<button class="btn btn-ghost btn-sm staff-delete-button" type="submit"><i class="fa-solid fa-trash"></i> Delete</button></form>{% endif %}</div></td></tr>
+          {% empty %}<tr><td colspan="{{ column_count }}" class="dashboard-empty">No matching records.</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="staff-pagination" aria-label="Pagination">
+      {% if page_obj.has_previous %}<a class="btn btn-ghost btn-sm" href="?{{ query_string.urlencode }}&amp;page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-arrow-left"></i> Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a class="btn btn-ghost btn-sm" href="?{{ query_string.urlencode }}&amp;page={{ page_obj.next_page_number }}">Next <i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

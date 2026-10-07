@@ -1,0 +1,5 @@
+<div class="field {% if field.errors %}has-error{% endif %} {{ extra }}">
+  <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="req">*</span>{% endif %}</label>
+  {{ field }}
+  <span class="field-error">{{ field.errors|join:", " }}</span>
+</div>

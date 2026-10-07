@@ -1,0 +1,21 @@
+{% extends "store/base.html" %}
+{% block title %}Manage Store | MarkX{% endblock %}
+{% block content %}
+<section class="page-head dashboard-page-head">
+  <div class="container dashboard-heading">
+    <div><span class="eyebrow">STAFF WORKSPACE</span><h1>Manage store</h1><p class="dashboard-lede">Products, orders, requests, and customer messages.</p></div>
+    <a class="btn btn-accent staff-overview-button" href="{% url 'store:dashboard' %}"><i class="fa-solid fa-gauge-high"></i> Dashboard overview</a>
+  </div>
+</section>
+<section class="section dashboard-section">
+  <div class="container staff-workspace-list">
+    <a class="btn btn-ghost" href="{% url 'store:inventory_import' %}">Import inventory CSV</a>
+    {% for section in sections %}
+    <div class="staff-workspace-row">
+      <div><h2>{{ section.title }}</h2><span>{{ section.count }} records</span></div>
+      <div class="staff-workspace-actions"><a class="btn btn-ghost btn-sm" href="{{ section.url }}">Manage <i class="fa-solid fa-arrow-right"></i></a>{% if section.can_add %}<a class="btn btn-accent btn-sm" href="{% url 'store:manage_create' section.key %}" aria-label="Add {{ section.title }}"><i class="fa-solid fa-plus"></i> Add</a>{% endif %}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

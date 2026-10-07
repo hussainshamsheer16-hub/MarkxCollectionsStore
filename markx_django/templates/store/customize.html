@@ -1,0 +1,22 @@
+{% extends "store/base.html" %}{% load static %}
+{% block title %}{% if request.session.site_language == 'ur' %}اپنی پسند کا لباس | مارکس کلیکشنز{% else %}Customize | MarkX Collections{% endif %}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">{% if request.session.site_language == 'ur' %}مردانہ لباس اپنی پسند کے مطابق{% else %}PERSONALISED MEN'S CLOTHING{% endif %}</span><h1>{% if request.session.site_language == 'ur' %}اپنا انداز خود بنائیں۔{% else %}Make it personal.{% endif %}</h1><p class="lede" style="color:#cfcfc8;margin-top:12px">{% if request.session.site_language == 'ur' %}نام، اپنی پسند کی تفصیل یا ٹیم کی شناخت کے ساتھ شرٹ، ٹراؤزر یا ٹریک سوٹ تیار کروانے کی درخواست دیں۔{% else %}Request a personalised shirt, trouser or tracksuit with names, details or team identification.{% endif %}</p></div></section>
+<section class="section"><div class="container customize-layout">
+  <div class="tee-preview"><div class="preview-shirt" id="previewShirt"><img src="{% get_media_prefix %}products/premium-white-cotton-tee.jpg" alt="{% if request.session.site_language == 'ur' %}نمونہ{% else %}Preview{% endif %}" id="previewImg"><div class="preview-text" id="previewText">{% if request.session.site_language == 'ur' %}اپنا متن{% else %}YOUR TEXT{% endif %}</div></div><p class="admin-sub" style="margin-top:12px">{% if request.session.site_language == 'ur' %}اپنی پسند کی تفصیل بتائیں؛ ہماری ٹیم حتمی معلومات کی تصدیق کے لیے آپ سے رابطہ کرے گی۔{% else %}Share your preferences — our team will confirm the final details with you.{% endif %}</p></div>
+  <form method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}
+    <div class="form-grid">
+      {% include "store/_field.html" with field=form.name %}{% include "store/_field.html" with field=form.phone %}
+      {% include "store/_field.html" with field=form.email %}{% include "store/_field.html" with field=form.quantity %}
+      {% include "store/_field.html" with field=form.tshirt_type %}{% include "store/_field.html" with field=form.color %}
+      {% include "store/_field.html" with field=form.size %}{% include "store/_field.html" with field=form.placement %}
+      {% include "store/_field.html" with field=form.custom_text extra="full" %}{% include "store/_field.html" with field=form.design_file extra="full" %}
+      {% include "store/_field.html" with field=form.notes extra="full" %}
+    </div>
+    <button class="btn btn-accent btn-block btn-arrow" type="submit">{% if request.session.site_language == 'ur' %}قیمت معلوم کرنے کی درخواست دیں{% else %}Request a quote{% endif %} <i class="fa-solid fa-arrow-right"></i></button>
+  </form>
+</div></section>
+{% endblock %}
+{% block scripts %}<script>
+const t=document.getElementById('id_custom_text'),p=document.getElementById('previewText'),emptyText=document.documentElement.lang==='ur'?'اپنا متن':'YOUR TEXT';t?.addEventListener('input',()=>p.textContent=t.value||emptyText);
+</script>{% endblock %}

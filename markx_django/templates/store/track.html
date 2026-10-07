@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+{% block title %}Track Your Order | MarkX Collections{% endblock %}
+{% block desc %}Check the status of your MarkX Collections order.{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">ORDER SUPPORT</span><h1>Track your order</h1><p>Enter your order number and the phone number used at checkout.</p></div></section>
+<section class="section"><div class="container comment-form-wrap">
+  <div class="contact-form-card"><div class="contact-form-heading"><span class="eyebrow">ORDER STATUS</span><h2>Find your order</h2></div>
+    <form method="post" novalidate>{% csrf_token %}<div class="form-grid">{% include "store/_field.html" with field=form.order_number extra="full" %}{% include "store/_field.html" with field=form.phone extra="full" %}</div>
+      {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+      <button class="btn btn-accent btn-block" type="submit">Check status <i class="fa-solid fa-arrow-right"></i></button>
+    </form>
+  </div>
+  {% if order %}<article class="track-result"><span class="eyebrow">ORDER {{ order.number }}</span><h2>{{ order.get_status_display }}</h2><p>Placed {{ order.created|date:"d M Y" }}</p></article>{% endif %}
+</div></section>
+{% endblock %}

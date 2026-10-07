@@ -1,0 +1,97 @@
+{% load static mx %}<!DOCTYPE html>
+<html lang="{{ request.session.site_language|default:'en' }}" dir="{% if request.session.site_language == 'ur' %}rtl{% else %}ltr{% endif %}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}MarkX Collections | Built To Stand Out{% endblock %}</title>
+<meta name="description" content="{% block desc %}Men's shirts, trousers and tracksuits from MarkX Collections. Wear your mindset.{% endblock %}">
+<meta property="og:title" content="{% block og_title %}MarkX Collections | Built To Stand Out{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Men's shirts, trousers and tracksuits from MarkX Collections.{% endblock %}">
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% block og_image_tag %}{% endblock %}
+<link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}?v=45">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% block head %}{% endblock %}
+</head>
+<body data-nav="{{ nav_active }}" data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}" data-wishlist-merge-url="{% url 'store:wishlist_merge' %}">
+{% include "store/_logo_svg.html" %}
+<div class="announce" id="announceBar" data-messages='["MENS SHIRTS · TROUSERS · TRACKSUITS","CASH ON DELIVERY AVAILABLE","15% OFF WHEN YOU PAY BY CARD","TEAM UNIFORM ORDERS WELCOME","FREE DELIVERY OVER RS. 6,000"]'></div>
+<header class="site-header" id="top">
+  <div class="container header-row">
+    <a href="{% url 'store:home' %}" class="logo" aria-label="MarkX Collections"><svg class="logo-m"><use href="#logo-m"/></svg><span class="logo-word"><b>MARKX</b><i>COLLECTIONS</i></span></a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="{% url 'store:home' %}" class="{% is_active 'home' %}">Home</a>
+      <a href="{% url 'store:shop' %}" class="{% is_active 'shop' 'product' %}">Shop</a>
+      <a href="{% url 'store:customize' %}" class="{% is_active 'customize' %}">Customize</a>
+      <a href="{% url 'store:bulk' %}" class="{% is_active 'bulk' %}">Bulk Orders</a>
+      <a href="{% url 'store:about' %}" class="{% is_active 'about' %}">About</a>
+      <a href="{% url 'store:contact' %}" class="{% is_active 'contact' %}">Contact</a>
+      {% if user.is_staff or user.is_superuser %}<a class="dashboard-nav-link" href="{% url 'store:dashboard' %}"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>{% endif %}
+    </nav>
+    <div class="header-actions">
+      <form method="post" action="{% url 'store:set_language' %}" class="language-form">{% csrf_token %}<input type="hidden" name="language" value="{% if request.session.site_language == 'ur' %}en{% else %}ur{% endif %}"><input type="hidden" name="next" value="{{ request.get_full_path }}"><button type="submit" class="language-toggle" aria-label="Switch language">{% if request.session.site_language == 'ur' %}English{% else %}اردو{% endif %}</button></form>
+      <button class="icon-btn" id="searchToggle" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button type="button" class="icon-btn" id="profileToggle" aria-label="Open profile" aria-haspopup="dialog" aria-expanded="false"><i class="fa-regular fa-user"></i></button>
+      <a href="{% url 'store:cart' %}" class="icon-btn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count" id="cartCount" {% if not cart_count %}style="display:none"{% endif %}>{{ cart_count }}</span></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  <div class="search-panel" id="searchPanel" data-url="{% url 'store:search' %}">
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <input type="text" id="siteSearchInput" placeholder="Search shirts, trousers, tracksuits..." autocomplete="off">
+        <button class="icon-btn" id="searchClose" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</header>
+<div class="profile-overlay" id="profileOverlay" hidden>
+  <section class="profile-popup" role="dialog" aria-modal="true" aria-labelledby="profilePopupTitle">
+    <div class="profile-popup-top"><div><span class="eyebrow">YOUR MARKX SPACE</span><h2 id="profilePopupTitle">{% if user.is_authenticated %}Your profile{% else %}Welcome to MarkX{% endif %}</h2></div><button type="button" class="profile-popup-close" id="profileClose" aria-label="Close profile"><i class="fa-solid fa-xmark"></i></button></div>
+    {% if user.is_authenticated %}
+      <div class="profile-popup-user"><span class="profile-popup-avatar">{{ user.username|first|upper }}</span><div><b>{{ user.get_full_name|default:user.username }}</b><small>{{ user.email|default:user.username }}</small></div></div>
+      <div class="profile-popup-details"><div><small>First name</small><b>{{ user.first_name|default:'Not set' }}</b></div><div><small>Last name</small><b>{{ user.last_name|default:'Not set' }}</b></div><div><small>Email</small><b>{{ user.email|default:'Not set' }}</b></div><div><small>Username</small><b>{{ user.username }}</b></div><div><small>Member since</small><b>{{ user.date_joined|date:'M Y' }}</b></div></div>
+      <a class="profile-popup-row" href="{% url 'store:loyalty' %}"><span><i class="fa-solid fa-star"></i> Loyalty points</span><i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn btn-accent btn-block profile-popup-edit" href="{% url 'store:profile_edit' %}"><i class="fa-solid fa-user-pen"></i> Edit profile</a>
+      {% if user.is_staff or user.is_superuser %}<a class="profile-popup-row" href="{% url 'store:dashboard' %}"><span><i class="fa-solid fa-gauge-high"></i> Store dashboard</span><i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+      <form method="post" action="{% url 'store:account_logout' %}" class="profile-popup-logout">{% csrf_token %}<button type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button></form>
+    {% else %}
+      <p class="profile-popup-copy">Sign in to your account or create a profile to continue shopping.</p>
+      <a class="btn btn-accent btn-block" href="{% url 'store:account' %}?mode=login">Sign in <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="profile-popup-create" href="{% url 'store:account' %}?mode=signup">New here? Create an account</a>
+    {% endif %}
+  </section>
+</div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-top"><span class="logo"><svg class="logo-m"><use href="#logo-m"/></svg><span class="logo-word"><b>MARKX</b></span></span><button class="icon-btn" id="mobileNavClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+  <a href="{% url 'store:home' %}">Home</a><a href="{% url 'store:shop' %}">Shop</a><a href="{% url 'store:customize' %}">Customize</a><a href="{% url 'store:bulk' %}">Bulk Orders</a><a href="{% url 'store:about' %}">About</a><a href="{% url 'store:contact' %}">Contact</a><a href="{% url 'store:cart' %}">Cart</a>{% if user.is_staff or user.is_superuser %}<a href="{% url 'store:dashboard' %}">Dashboard</a>{% endif %}
+</div>
+
+{% if messages %}<div class="toast-stack" id="djMessages">{% for m in messages %}<div class="toast show {{ m.tags }}"><i class="fa-solid {% if m.tags == 'error' %}fa-circle-exclamation{% else %}fa-circle-check{% endif %}"></i> {{ m }}</div>{% endfor %}</div>{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div><a href="{% url 'store:home' %}" class="logo"><svg class="logo-m"><use href="#logo-m"/></svg><span class="logo-word"><b>MARKX</b><i>COLLECTIONS</i></span></a><p class="tagline">Wear Your Mindset.</p></div>
+    <nav class="footer-nav" aria-label="Footer"><a href="{% url 'store:home' %}">Home</a><a href="{% url 'store:shop' %}">Shop</a><a href="{% url 'store:about' %}">About</a><a href="{% url 'store:contact' %}">Contact</a></nav>
+    <div class="footer-social"><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a><a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://wa.me/{{ MX.WHATSAPP }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></div>
+  </div>
+  <div class="container footer-links">
+    <div><h4>SHOP</h4><a href="{% url 'store:shop' %}">All Products</a>{% for category in shop_categories %}<a href="{% url 'store:shop' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div>
+    <div><h4>TEAMS</h4><a href="{% url 'store:customize' %}">Personalised clothing</a><a href="{% url 'store:bulk' %}">Team uniforms</a><a href="{% url 'store:shop' %}?category=shirts">Men's shirts</a></div>
+    <div><h4>HELP</h4><a href="{% url 'store:contact' %}">Contact</a><a href="{% url 'store:track_order' %}">Track order</a><a href="{% url 'store:about' %}#shipping">Shipping</a><a href="{% url 'store:about' %}#returns">Returns</a><a href="{% url 'store:home' %}#faq">FAQs</a></div>
+    <div><h4>MARKX</h4><a href="{% url 'store:about' %}">Our Story</a><a href="{% url 'store:cart' %}">Cart</a>{% if user.is_staff %}<a href="{% url 'store:staff_workspace' %}">Staff workspace</a>{% endif %}</div>
+  </div>
+  <div class="container footer-bottom"><span>&copy; 2026 MarkX Collections. All rights reserved.</span><a href="{% url 'store:contact' %}">Need help? Contact our team</a></div>
+</footer>
+<a class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" href="https://wa.me/{{ MX.WHATSAPP }}?text=Hello%20MarkX%20Collections"><i class="fa-brands fa-whatsapp"></i></a>
+<div class="toast-stack" id="toastStack"></div>
+<script src="{% static 'js/app.js' %}?v=26"></script>
+<script src="{% static 'js/language.js' %}?v=2"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

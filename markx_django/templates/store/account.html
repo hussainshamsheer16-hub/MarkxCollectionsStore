@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+{% block title %}My Profile | MarkX Collections{% endblock %}
+{% block content %}
+<section class="account-hero"><div class="container"><span class="eyebrow">YOUR MARKX SPACE</span><h1>{% if user.is_authenticated %}Good to have you back.{% else %}Your profile,<br><em>your MarkX.</em>{% endif %}</h1><p>{% if user.is_authenticated %}Manage your account and jump back into the collection.{% else %}Sign in or create an account to make your MarkX experience yours.{% endif %}</p></div></section>
+<section class="section account-section"><div class="container">
+{% if user.is_authenticated %}
+  <div class="profile-card"><div class="profile-card-top"><div class="profile-avatar">{{ user.username|first|upper }}</div><div><span class="eyebrow">MEMBER PROFILE</span><h2>{{ user.get_full_name|default:user.username }}</h2><p>@{{ user.username }}</p></div></div><div class="profile-details"><div><small>USERNAME</small><b>{{ user.username }}</b></div><div><small>EMAIL ADDRESS</small><b>{{ user.email|default:"Add your email in account settings" }}</b></div><div><small>MEMBER SINCE</small><b>{{ user.date_joined|date:"F Y" }}</b></div></div><div class="profile-actions"><a class="btn btn-accent btn-arrow" href="{% url 'store:shop' %}">Shop the collection <i class="fa-solid fa-arrow-right"></i></a>{% if user.is_staff %}<a class="btn btn-ghost" href="{% url 'store:dashboard' %}">Store dashboard</a>{% endif %}<form method="post" action="{% url 'store:account_logout' %}">{% csrf_token %}<button class="btn btn-ghost" type="submit">Sign out</button></form></div></div>
+{% else %}
+  <div class="account-auth-wrap">
+  {% if mode == "signup" %}
+    <div class="account-auth-card account-signup-card"><span class="eyebrow">NEW TO MARKX?</span><h2>Create your profile</h2><p>Set up an account to continue to checkout and keep your details together.</p><form method="post" novalidate>{% csrf_token %}<input type="hidden" name="account_action" value="signup"><input type="hidden" name="next" value="{{ next_url }}">{% for field in signup_form %}{% include "store/_field.html" with field=field %}{% endfor %}{% if signup_form.non_field_errors %}<p class="account-form-error">{{ signup_form.non_field_errors|join:", " }}</p>{% endif %}<button class="btn btn-accent btn-block" type="submit">Create account <i class="fa-solid fa-arrow-right"></i></button></form><p class="account-switch">Already have an account? <a href="{% url 'store:account' %}?mode=login{% if next_url %}&amp;next={{ next_url|urlencode }}{% endif %}">Sign in</a></p></div>
+  {% else %}
+    <div class="account-auth-card"><span class="eyebrow">WELCOME BACK</span><h2>Sign in to continue</h2><p>Enter your email address and password to sign in.</p><form method="post" novalidate>{% csrf_token %}<input type="hidden" name="account_action" value="login"><input type="hidden" name="next" value="{{ next_url }}">{% for field in login_form %}{% include "store/_field.html" with field=field %}{% endfor %}{% if login_form.non_field_errors %}<p class="account-form-error">{{ login_form.non_field_errors|join:", " }}</p>{% endif %}<button class="btn btn-solid btn-block" type="submit">Sign in <i class="fa-solid fa-arrow-right"></i></button></form><p class="account-switch">New to MarkX? <a href="{% url 'store:account' %}?mode=signup{% if next_url %}&amp;next={{ next_url|urlencode }}{% endif %}">Create an account</a></p></div>
+  {% endif %}
+  </div>
+{% endif %}
+</div></section>
+{% endblock %}

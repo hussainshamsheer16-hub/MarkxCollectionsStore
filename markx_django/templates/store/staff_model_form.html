@@ -1,0 +1,44 @@
+{% extends "store/base.html" %}
+{% block title %}{% if is_create %}Add{% else %}Edit{% endif %} {{ spec.title }} | Manage Store{% endblock %}
+{% block content %}
+<section class="page-head dashboard-page-head">
+  <div class="container dashboard-heading">
+    <div><span class="eyebrow"><a href="{% url 'store:manage_model' model_key %}">{{ spec.title|upper }}</a> {% if model_key == 'products' and instance %}/ #{{ instance.pk }}{% endif %}</span><h1>{% if is_create %}Add {{ singular_title }}{% elif model_key == 'products' %}Edit product{% else %}Edit record{% endif %}</h1>{% if model_key == 'products' %}<p class="dashboard-lede">Update product details, pricing, inventory, and storefront visibility.</p>{% endif %}</div>
+    <a class="btn btn-ghost staff-back-button" href="{% url 'store:manage_model' model_key %}"><i class="fa-solid fa-arrow-left"></i> Back to {{ spec.title }}</a>
+  </div>
+</section>
+<section class="section dashboard-section staff-form-section">
+  <div class="container">
+    <form class="staff-record-form{% if model_key == 'products' %} staff-product-form{% endif %}" method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="account-form-error">{{ form.non_field_errors }}</div>{% endif %}
+      {% if model_key == 'products' %}
+        <div class="staff-product-form-intro"><span class="eyebrow">PRODUCT EDITOR</span><strong>{% if instance %}{{ instance.name }}{% else %}New product{% endif %}</strong><span class="staff-product-state"><i class="fa-solid fa-circle"></i> {% if instance.active %}Visible in shop{% else %}Hidden from shop{% endif %}</span></div>
+        <section class="staff-product-group"><div class="staff-product-group-head"><span>01</span><div><h2>Product details</h2><p>Name, category, and the product description.</p></div></div><div class="staff-product-fields">
+          {% for field in form %}{% if field.name == 'name' or field.name == 'slug' or field.name == 'category' or field.name == 'collection' or field.name == 'product_type' or field.name == 'badge' %}{% include "store/_field.html" with field=field extra="staff-product-field" %}{% endif %}{% endfor %}
+          {% for field in form %}{% if field.name == 'description' %}{% include "store/_field.html" with field=field extra="staff-product-field staff-product-field-wide" %}{% endif %}{% endfor %}
+        </div></section>
+        <section class="staff-product-group"><div class="staff-product-group-head"><span>02</span><div><h2>Pricing & inventory</h2><p>Set the selling price and quantity available to order.</p></div></div><div class="staff-product-fields">
+          {% for field in form %}{% if field.name == 'price' or field.name == 'old_price' or field.name == 'stock_qty' or field.name == 'in_stock' %}{% include "store/_field.html" with field=field extra="staff-product-field" %}{% endif %}{% endfor %}
+        </div></section>
+        <section class="staff-product-group"><div class="staff-product-group-head"><span>03</span><div><h2>Fit & options</h2><p>Help shoppers choose the right size and understand the garment.</p></div></div><div class="staff-product-fields">
+          {% for field in form %}{% if field.name == 'fit' or field.name == 'fabric' or field.name == 'care' or field.name == 'size_guide' or field.name == 'sizes' or field.name == 'colors' or field.name == 'customizable' %}{% include "store/_field.html" with field=field extra="staff-product-field" %}{% endif %}{% endfor %}
+        </div></section>
+        <section class="staff-product-group"><div class="staff-product-group-head"><span>04</span><div><h2>Product images</h2><p>Upload clear product images. The first image is the main storefront photo.</p></div></div>
+          {% if image_previews %}<div class="staff-image-previews">{% for field,image_url in image_previews %}<a href="{{ image_url }}" target="_blank" rel="noopener"><img src="{{ image_url }}" alt="Current {{ field }}"><span>{{ field|capfirst }} · Current image</span></a>{% endfor %}</div>{% endif %}
+          <div class="staff-product-fields">{% for field in form %}{% if field.name == 'image' or field.name == 'image2' or field.name == 'image3' %}{% include "store/_field.html" with field=field extra="staff-product-field" %}{% endif %}{% endfor %}</div>
+        </section>
+        <section class="staff-product-group"><div class="staff-product-group-head"><span>05</span><div><h2>Storefront status</h2><p>Choose whether to feature the product and show it to shoppers.</p></div></div><div class="staff-product-fields staff-product-toggles">
+          {% for field in form %}{% if field.name == 'featured' or field.name == 'active' or field.name == 'rating' or field.name == 'reviews' %}{% include "store/_field.html" with field=field extra="staff-product-field" %}{% endif %}{% endfor %}
+        </div></section>
+      {% else %}
+        {% if image_previews %}<div class="staff-image-previews">{% for field,image_url in image_previews %}<a href="{{ image_url }}" target="_blank" rel="noopener"><img src="{{ image_url }}" alt="Current {{ field }}"><span>{{ field|capfirst }}</span></a>{% endfor %}</div>{% endif %}
+        {% for field in form %}{% include "store/_field.html" with field=field %}{% endfor %}
+      {% endif %}
+      {% if readonly_values %}<div class="staff-readonly-grid">{% for label,value,image_url in readonly_values %}<div><small>{{ label }}</small><b>{% if image_url %}<a href="{{ image_url }}" target="_blank" rel="noopener">View uploaded file</a>{% else %}{{ value }}{% endif %}</b></div>{% endfor %}</div>{% endif %}
+      {% if order_items %}<div class="staff-order-items"><h2>Items in this order</h2><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Product</th><th>Size</th><th>Color</th><th>Price</th><th>Qty</th></tr></thead><tbody>{% for item in order_items %}<tr><td>{{ item.name }}</td><td>{{ item.size }}</td><td>{{ item.color }}</td><td>Rs. {{ item.price }}</td><td>{{ item.qty }}</td></tr>{% endfor %}</tbody></table></div></div>{% endif %}
+      <div class="profile-edit-actions staff-product-actions"><button class="btn btn-accent" type="submit"><i class="fa-solid fa-check"></i> {% if is_create %}Create product{% else %}Save product{% endif %}</button><a class="btn btn-ghost" href="{% url 'store:manage_model' model_key %}">Cancel</a>{% if model_key == 'products' and instance %}<a class="staff-view-product" href="{{ instance.get_absolute_url }}" target="_blank" rel="noopener">View in shop <i class="fa-solid fa-arrow-up-right-from-square"></i></a>{% endif %}</div>
+    </form>
+  </div>
+</section>
+{% endblock %}

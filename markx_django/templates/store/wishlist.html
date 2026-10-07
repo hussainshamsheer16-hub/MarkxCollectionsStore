@@ -1,0 +1,6 @@
+{% extends "store/base.html" %}
+{% block title %}My Wishlist | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">SAVED FOR LATER</span><h1>My wishlist</h1></div></section>
+<section class="section"><div class="container"><div class="product-grid">{% for p in products %}{% include "store/_card.html" %}{% empty %}<div class="empty-state" style="grid-column:1/-1"><i class="fa-regular fa-heart"></i><h2>Your wishlist is empty</h2><p>Save products you want to come back to.</p><a class="btn btn-solid" href="{% url 'store:shop' %}">Browse products</a></div>{% endfor %}</div></div></section>
+{% endblock %}

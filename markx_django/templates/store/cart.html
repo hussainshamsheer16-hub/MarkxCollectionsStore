@@ -1,0 +1,28 @@
+{% extends "store/base.html" %}{% load mx %}
+{% block title %}Your Cart | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container cart-page-heading"><div><span class="eyebrow">YOUR BAG</span><h1>Cart</h1></div><div class="cart-heading-actions"><a class="btn btn-ghost cart-orders-button" href="{% url 'store:my_orders' %}"><i class="fa-solid fa-receipt"></i> My orders</a><a class="btn btn-ghost cart-orders-button" href="{% url 'store:wishlist' %}"><i class="fa-regular fa-heart"></i> Wishlist</a><a class="cart-back-icon" href="{% url 'store:shop' %}" data-history-back aria-label="Go back" title="Go back"><i class="fa-solid fa-arrow-left"></i></a></div></div></section>
+<section class="section"><div class="container">
+{% if lines %}
+<div class="checkout-grid">
+  <div>{% for l in lines %}
+    <div class="cart-item">
+      <a href="{{ l.product.get_absolute_url }}"><img src="{{ l.product.image.url }}" alt="{{ l.product.name }}"></a>
+      <div><h3 style="font-size:1.25rem"><a href="{{ l.product.get_absolute_url }}">{{ l.product.name }}</a></h3><div class="cart-item-meta">{% if l.product.product_type == "tracksuit" %}Jacket + trousers set · {% endif %}{{ l.color }} · {{ l.size }} · {{ l.price|money }}</div>
+        <form method="post" action="{% url 'store:cart_update' %}" style="display:inline-flex;align-items:center;gap:10px">{% csrf_token %}<input type="hidden" name="key" value="{{ l.key }}">
+          <div class="qty-stepper"><button name="qty" value="{{ l.qty|add:'-1' }}">−</button><span>{{ l.qty }}</span><button name="qty" value="{{ l.qty|add:'1' }}">+</button></div></form>
+        <form method="post" action="{% url 'store:cart_remove' %}" style="display:inline">{% csrf_token %}<input type="hidden" name="key" value="{{ l.key }}"><button class="remove-link" style="background:none;border:0;margin-left:14px;cursor:pointer">Remove</button></form></div>
+      <strong style="font-size:1.1rem">{{ l.total|money }}</strong>
+    </div>{% endfor %}
+    <a href="{% url 'store:shop' %}" class="btn btn-ghost" style="margin-top:26px">← Continue shopping</a>
+  </div>
+  <aside class="cart-side"><h3 style="margin-bottom:14px">Order summary</h3>
+    <div class="sum-row"><span>Subtotal</span><span>{{ totals.subtotal|money }}</span></div>
+    <div class="sum-row"><span>Delivery</span><span>{% if totals.delivery %}{{ totals.delivery|money }}{% else %}FREE{% endif %}</span></div>
+    <div class="sum-row total"><span>Total</span><span>{{ totals.total|money }}</span></div>
+    <p style="font-size:.78rem;color:#6b6b62;margin:10px 0 20px"><i class="fa-solid fa-credit-card"></i> Pay by card at checkout and save 15%.</p>
+    <a href="{% url 'store:checkout' %}" class="btn btn-accent btn-block btn-arrow">Checkout <i class="fa-solid fa-arrow-right"></i></a></aside>
+</div>
+{% else %}<div class="empty-state"><i class="fa-solid fa-bag-shopping"></i><h2>Your cart is empty</h2><p>Looks like you haven't added anything yet.</p><a href="{% url 'store:shop' %}" class="btn btn-solid">Start shopping</a></div>{% endif %}
+</div></section>
+{% endblock %}

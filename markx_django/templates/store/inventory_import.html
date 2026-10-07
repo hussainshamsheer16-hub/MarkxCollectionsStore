@@ -1,0 +1,9 @@
+{% extends "store/base.html" %}
+{% block title %}Inventory CSV import | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">STAFF TOOL</span><h1>Import variant inventory</h1></div></section>
+<section class="section"><div class="container"><p>Upload a UTF-8 CSV with <code>product_slug,size,color,stock_qty</code> and optional <code>sku</code>. The app validates the whole file before any changes are saved.</p>
+{% if errors %}<div class="toast error">{% for error in errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+{% if preview %}<h2>Preview ({{ preview|length }} rows)</h2><div class="table-scroll"><table><thead><tr><th>Product slug</th><th>Size</th><th>Color</th><th>Stock</th><th>SKU</th></tr></thead><tbody>{% for row in preview %}<tr><td>{{ row.product_slug }}</td><td>{{ row.size }}</td><td>{{ row.color }}</td><td>{{ row.stock_qty }}</td><td>{{ row.sku }}</td></tr>{% endfor %}</tbody></table></div><form method="post">{% csrf_token %}<input type="hidden" name="action" value="commit"><input type="hidden" name="token" value="{{ token }}"><button class="btn btn-accent" type="submit">Import these rows</button></form>
+{% else %}<form method="post" enctype="multipart/form-data" class="contact-form-card">{% csrf_token %}<label>Inventory CSV<input type="file" name="csv_file" accept=".csv,text/csv" required></label><button class="btn btn-accent" type="submit">Validate and preview</button></form>{% endif %}</div></section>
+{% endblock %}

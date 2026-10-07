@@ -1,0 +1,23 @@
+{% extends "store/base.html" %}
+{% block title %}Contact | MarkX Collections{% endblock %}
+{% block desc %}Questions about an order, custom print or team order? Talk to the MarkX Collections team.{% endblock %}
+{% block content %}
+<section class="contact-hero"><div class="container"><span class="eyebrow">WE’RE HERE TO HELP</span><h1>Let’s talk<br><em>MarkX.</em></h1><p>Need a hand with an order or have an idea to make? Send us a message and our team will get back to you.</p></div></section>
+<section class="section contact-main"><div class="container contact-layout">
+  <aside class="contact-aside"><span class="eyebrow">GET IN TOUCH</span><h2>Pick what<br>works for you.</h2><p>For product questions, custom prints and team orders, reach out through any of these channels.</p>
+    <a class="contact-channel" href="tel:+923001234567"><span class="contact-channel-icon"><i class="fa-solid fa-phone"></i></span><span><small>CALL US</small><b>+92 300 1234567</b></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <a class="contact-channel" href="https://wa.me/{{ MX.WHATSAPP }}?text=Hello%20MarkX%20Collections" target="_blank" rel="noopener"><span class="contact-channel-icon"><i class="fa-brands fa-whatsapp"></i></span><span><small>WHATSAPP</small><b>Chat with our team</b></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <a class="contact-channel" href="mailto:hello@markxcollections.pk"><span class="contact-channel-icon"><i class="fa-solid fa-envelope"></i></span><span><small>EMAIL</small><b>hello@markxcollections.pk</b></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <div class="contact-location"><i class="fa-solid fa-location-dot"></i><span><small>BASED IN</small><b>Lahore, Pakistan</b></span></div>
+    <div class="contact-aside-note"><i class="fa-regular fa-message"></i><span>Have a design in mind? Include a few details and we’ll help you take it from idea to apparel.</span></div>
+  </aside>
+  <div class="contact-form-card"><div class="contact-form-heading"><span class="eyebrow">SEND A MESSAGE</span><h2>How can we help?</h2><p>Fill in the form and we’ll be in touch.</p></div>
+    <form method="post" novalidate>{% csrf_token %}<div class="form-grid">
+      {% include "store/_field.html" with field=form.name %}{% include "store/_field.html" with field=form.email %}
+      {% include "store/_field.html" with field=form.phone %}{% include "store/_field.html" with field=form.subject %}
+      {% include "store/_field.html" with field=form.message extra="full" %}</div>
+      <button class="btn btn-accent btn-block btn-arrow" type="submit">Send your message <i class="fa-solid fa-arrow-right"></i></button><small class="contact-privacy"><i class="fa-solid fa-lock"></i> Your details are only used to reply to your message.</small>
+    </form>
+  </div>
+</div></section>
+{% endblock %}

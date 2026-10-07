@@ -1,0 +1,7 @@
+Hello {{ order.full_name }},
+
+There is an update to your MarkX Collections order {{ order.number }}.
+Previous status: {{ previous_status|title }}
+Current status: {{ status_label }}
+
+If you have questions, contact our team and mention your order number.

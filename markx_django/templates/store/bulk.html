@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}{% load static %}
+{% block title %}Bulk Orders | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">TEAMS &amp; ORGANIZATIONS</span><h1>Team Uniforms</h1><p class="lede" style="color:#cfcfc8;margin-top:12px">Coordinated shirts, trousers and tracksuits for schools, companies, events and teams.</p></div></section>
+<section class="section"><div class="container" style="max-width:860px">
+  <div class="feature-grid" style="margin-bottom:44px"><div class="feature-cell"><i class="fa-solid fa-tags feature-icon"></i><h3>Team pricing</h3><p>Options for every group size.</p></div><div class="feature-cell"><i class="fa-solid fa-shirt feature-icon"></i><h3>Three clothing groups</h3><p>Shirts, trousers and tracksuits.</p></div><div class="feature-cell"><i class="fa-solid fa-bolt feature-icon"></i><h3>Quick response</h3><p>Quote in 24 hours.</p></div><div class="feature-cell"><i class="fa-solid fa-truck feature-icon"></i><h3>Nationwide</h3><p>Delivered to your door.</p></div></div>
+  <form method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}<div class="form-grid">
+    {% include "store/_field.html" with field=form.organization %}{% include "store/_field.html" with field=form.contact_person %}
+    {% include "store/_field.html" with field=form.phone %}{% include "store/_field.html" with field=form.email %}
+    {% include "store/_field.html" with field=form.order_type %}{% include "store/_field.html" with field=form.quantity_range %}
+    {% include "store/_field.html" with field=form.tshirt_type %}{% include "store/_field.html" with field=form.printing_type %}
+    {% include "store/_field.html" with field=form.logo extra="full" %}{% include "store/_field.html" with field=form.notes extra="full" %}
+  </div><button class="btn btn-accent btn-block btn-arrow" type="submit">Get bulk quote <i class="fa-solid fa-arrow-right"></i></button></form>
+</div></section>
+{% endblock %}

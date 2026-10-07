@@ -1,0 +1,6 @@
+{% extends "store/base.html" %}
+{% block title %}Edit Profile | MarkX Collections{% endblock %}
+{% block content %}
+<section class="account-hero"><div class="container"><span class="eyebrow">YOUR MARKX SPACE</span><h1>Edit your<br><em>profile.</em></h1><p>Keep your account details up to date.</p></div></section>
+<section class="section account-section"><div class="container"><div class="account-auth-card profile-edit-card"><span class="eyebrow">ACCOUNT DETAILS</span><h2>Personal information</h2><form method="post" novalidate>{% csrf_token %}<div class="form-grid">{% for field in form %}{% include "store/_field.html" with field=field %}{% endfor %}</div><div class="profile-edit-actions"><button class="btn btn-accent" type="submit">Save changes <i class="fa-solid fa-check"></i></button><a class="btn btn-ghost" href="{% url 'store:account' %}">Cancel</a></div></form></div></div></section>
+{% endblock %}

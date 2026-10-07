@@ -1,0 +1,6 @@
+{% extends "store/base.html" %}
+{% block title %}Loyalty | MarkX Collections{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span class="eyebrow">CUSTOMER REWARDS</span><h1>Loyalty points</h1></div></section>
+<section class="section"><div class="container"><div class="contact-form-card"><h2>{{ balance }} points</h2><p>Earn points when your orders are delivered. Share your referral code with a friend:</p><p class="size-recommendation"><b>{{ referral.code }}</b></p></div><h2 style="margin-top:28px">Points history</h2><div class="product-review-list">{% for entry in entries %}<article class="product-review"><b>{{ entry.reason }}</b><span>{% if entry.points > 0 %}+{% endif %}{{ entry.points }} points</span><small>{{ entry.created|date:"d M Y" }}</small></article>{% empty %}<p>No points history yet.</p>{% endfor %}</div></div></section>
+{% endblock %}

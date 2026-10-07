@@ -1,0 +1,23 @@
+{% load mx %}
+Hello {{ order.full_name }},
+
+Thank you for your order. We have received it and will contact you to confirm delivery.
+
+Order: {{ order.number }}
+Placed: {{ order.created|date:"d M Y, H:i" }}
+Status: {{ order.get_status_display }}
+Payment: {{ order.get_payment_method_display }}
+
+Items:
+{% for item in items %}{{ item.qty }} x {{ item.name }} ({{ item.size }}, {{ item.color }}) - {{ item.line_total|money }}
+{% endfor %}
+Subtotal: {{ order.subtotal|money }}
+{% if order.discount %}{% if order.coupon_code %}Promo code {{ order.coupon_code }}{% else %}Card discount{% endif %}: - {{ order.discount|money }}
+{% endif %}Delivery: {% if order.delivery %}{{ order.delivery|money }}{% else %}FREE{% endif %}
+Total: {{ order.total|money }}
+
+Deliver to: {{ order.address }}, {{ order.city }}
+Phone: {{ order.phone }}
+{% if order.notes %}Order notes: {{ order.notes }}
+{% endif %}
+MarkX Collections

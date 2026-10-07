@@ -1,0 +1,13 @@
+{% extends "store/base.html" %}
+{% block title %}Leave a Comment | MarkX Collections{% endblock %}
+{% block desc %}Share your feedback with MarkX Collections.{% endblock %}
+{% block content %}
+<section class="contact-hero"><div class="container"><span class="eyebrow">CUSTOMER COMMENTS</span><h1>Share your<br><em>thoughts.</em></h1><p>Your feedback helps us make MarkX better.</p></div></section>
+<section class="section contact-main"><div class="container comment-form-wrap">
+  <div class="contact-form-card"><div class="contact-form-heading"><span class="eyebrow">WRITE A COMMENT</span><h2>We’re listening.</h2><p>Your comment will appear on the About page after you submit it.</p></div>
+    <form method="post" novalidate>{% csrf_token %}<div class="form-grid">{% include "store/_field.html" with field=form.name extra="full" %}{% include "store/_field.html" with field=form.message extra="full" %}</div>
+      <button class="btn btn-accent btn-block btn-arrow" type="submit">Post comment <i class="fa-solid fa-arrow-right"></i></button>
+    </form>
+  </div>
+</div></section>
+{% endblock %}
